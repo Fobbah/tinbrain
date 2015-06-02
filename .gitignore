@@ -194,3 +194,5 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+external_libraries/BWAPI/
+external_libraries/BWTAlib_2.2/
