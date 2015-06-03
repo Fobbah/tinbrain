@@ -1,4 +1,5 @@
 #include "OffenseManager.h"
+#include "bwlog.h"
 
 using namespace BWAPI;
 
@@ -41,8 +42,11 @@ namespace BWSAL {
 		UnitGroup army = SelectAll()(canAttack)(canMove).not(isWorker);
 		if (army.size() > 0)
 		{
-			printf("THINK! PushSize=%d/%d Attacking=%s TargetSetSize=%u\n",
-				army.size(), m_pushSize, m_attacking ? "TRUE" : "FALSE", mTargets.size());
+			BWLOG(logINFO) << "[OffenseManager] Info=\"THINK!\" PushSize="
+				<< army.size() << "/" << m_pushSize
+				<< " Attacking=" << (m_attacking ? "TRUE" : "FALSE")
+				<< " TargetSetSize=" << mTargets.size();
+				
 			if (m_attacking == false)
 			{
 				if ((int)army.size() >= this->m_pushSize)
@@ -73,24 +77,24 @@ namespace BWSAL {
 				}
 				else
 				{
-					printf("can't find attack position, terminating attack\n");
+					BWLOG(logINFO) << "[OffenseManager] Info=\"Can't find attack position, terminating attack\"";
 					m_attacking = false;
 				}
 			}
 		}
 		else
 		{
-			printf("can't attack, no army.\n");
+			BWLOG(logINFO) << "[OffenseManager] Info=\"Can't attack, no army.\"";
 		}
 	}
 
 	BWAPI::Position OffenseManager::getAttackTarget()
 	{
-		printf("BEGIN_UNIT_DUMP\n");
+		BWLOG(logINFO) << "[OffenseManager] Info=\"BEGIN_TARGET_DUMP\"";
 		for (BWAPI::Unit u : mTargets)
 		{
 			BWAPI::Position pos = m_informationManager->getLastPosition(u);
-			printf("DUMP_UNITS: %s, %d@%d\b\n", m_informationManager->getType(u).toString().c_str(), pos.x, pos.y);
+			BWLOG(logINFO) << "[OffenseManager] PotentialTarget=" << m_informationManager->getType(u).toString().c_str() << " Position=" << pos.x << "@" << pos.y;
 		}
 		for (BWAPI::Unit u : mTargets)
 		{
@@ -102,7 +106,7 @@ namespace BWSAL {
 			
 			if (isPositionValid(pos))
 			{
-				printf("ATTACKING UNIT:%s, %d@%d\n", m_informationManager->getType(u).toString().c_str(), pos.x, pos.y);
+				BWLOG(logINFO) << "[OffenseManager] Target=" << m_informationManager->getType(u).toString().c_str() << " Position=" << pos.x << "@" << pos.y;
 				return pos;
 			}
 		}
