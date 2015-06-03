@@ -33,16 +33,15 @@ public:
   void showForces();
   bool analyzed;
 
+  //MODULES
   std::list< BWAPI::AIModule* > m_modules;
   BWSAL::BorderManager*      m_borderManager;
   BWSAL::InformationManager* m_informationManager;
   BWSAL::BaseManager*        m_baseManager;
   BWSAL::BuildEventTimeline* m_buildEventTimeline;
-  BWSAL::BuildingPlacer*     m_buildingPlacer;
   BWSAL::ReservedMap*        m_reservedMap;
   BWSAL::TaskScheduler*      m_taskScheduler;
   BWSAL::TaskExecutor*       m_taskExecutor;
-  BWSAL::UnitArbitrator*     m_unitArbitrator;
   BWSAL::UnitGroupManager*   m_unitGroupManager;
   BWSAL::WorkerManager*      m_workerManager;
   BWSAL::BuildUnitManager*   m_buildUnitManager;
@@ -53,6 +52,9 @@ public:
   BWSAL::OffenseManager*	 m_offenseManager;
   BWSAL::BwapiEventLogger*   m_eventLogger;
   EnhancedUI*                m_enhancedUI;
+
+  BWSAL::BuildingPlacer*     m_buildingPlacer;
+  BWSAL::UnitArbitrator*     m_unitArbitrator;
 
   bool showManagerAssignments;
   std::string rush_mode;

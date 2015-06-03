@@ -7,7 +7,7 @@ namespace BWSAL {
 void Tinbrain::onStart()
 {
 	FILELog::ReportingLevel() = logDEBUG1;
-	FILE* log_fd = fopen("blitz_bot.log", "w");
+	FILE* log_fd = fopen("tinbrain.log", "w");
 	Output2FILE::Stream() = log_fd;
 
 	BWSAL::BWSAL_init();
@@ -272,19 +272,7 @@ void Tinbrain::onFrame()
   if (Broodwar->isReplay()) return;
   if (!this->analyzed) return;
   Broodwar->drawTextScreen(300,0,"%s",rush_mode.c_str());
-  //this->buildManager->update();
-  //this->buildOrderManager->update();
-  //this->baseManager->update();
-  //this->workerManager->update();
-  //this->techManager->update();
-  //this->upgradeManager->update();
-  //this->supplyManager->update();
-  //this->scoutManager->update();
-  //this->enhancedUI->update();
-  //this->borderManager->update();
-//  this->defenseManager->update();
-  //this->arbitrator.update();
-
+  
   if (Broodwar->getFrameCount()>24*50)
     this->m_scoutManager->setScoutCount(1);
 
@@ -297,7 +285,6 @@ void Tinbrain::onFrame()
       {
         int x=(*i)->getPosition().x;
         int y=(*i)->getPosition().y;
-        //std::list< std::pair< Arbitrator::Controller<BWAPI::Unit*,double>*, double> > bids=this->arbitrator.getAllBidders(*i);
 		auto bids = m_unitArbitrator->getAllBidders(*i);
         int y_off=0;
         bool first = false;
@@ -322,23 +309,13 @@ void Tinbrain::onFrame()
 
 void Tinbrain::onUnitDestroy(BWAPI::Unit unit)
 {
+	m_unitArbitrator->onRemoveObject(unit);
+
 	if (Broodwar->isReplay()) return;
 	for (BWAPI::AIModule* m : m_modules)
 	{
 		m->onUnitDestroy(unit);
 	}
-	/*
-  if (Broodwar->isReplay()) return;
-  this->arbitrator.onRemoveObject(unit);
-  this->buildManager->onRemoveUnit(unit);
-  this->techManager->onRemoveUnit(unit);
-  this->upgradeManager->onRemoveUnit(unit);
-  this->workerManager->onRemoveUnit(unit);
-  this->scoutManager->onRemoveUnit(unit);
-  this->defenseManager->onRemoveUnit(unit);
-  this->informationManager->onUnitDestroy(unit);
-  this->baseManager->onRemoveUnit(unit);
-  */
 }
 
 void Tinbrain::onUnitDiscover(BWAPI::Unit unit)
@@ -348,11 +325,6 @@ void Tinbrain::onUnitDiscover(BWAPI::Unit unit)
 	{
 		m->onUnitDiscover(unit);
 	}
-	/*
-  if (Broodwar->isReplay()) return;
-  this->informationManager->onUnitDiscover(unit);
-  this->unitGroupManager->onUnitDiscover(unit);
-  */
 }
 void Tinbrain::onUnitEvade(BWAPI::Unit unit)
 {
