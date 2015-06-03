@@ -5,6 +5,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BWSAL", "external_libraries\BWSAL\BWSAL\BWSAL.vcxproj", "{DBD449BF-401A-4B1F-89A2-8811DA9E9E5F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tinbrain", "Tinbrain\Tinbrain.vcxproj", "{E8B4F2BE-DE31-4C93-BB89-38FE792E57F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DBD449BF-401A-4B1F-89A2-8811DA9E9E5F} = {DBD449BF-401A-4B1F-89A2-8811DA9E9E5F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinbrainClient", "TinbrainClient\TinbrainClient.vcxproj", "{FBFD358C-773C-48DB-980C-271A779C0548}"
 EndProject
